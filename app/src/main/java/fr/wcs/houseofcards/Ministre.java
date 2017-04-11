@@ -7,8 +7,8 @@ package fr.wcs.houseofcards;
 public class Ministre extends Politicien{
 
 
-    public Ministre(int revenus, double patrimoine, Parti parti) {
-        super(revenus, patrimoine, parti);
+    public Ministre(int revenus, double patrimoine, Parti parti , String name) {
+        super(revenus, patrimoine, parti, name );
     }
 
     public Loi proposeLoi(){
@@ -33,4 +33,8 @@ public class Ministre extends Politicien{
         }
     }
 
+    @Override
+    public int getFonction() {
+        return MINISTRE;
+    }
 }

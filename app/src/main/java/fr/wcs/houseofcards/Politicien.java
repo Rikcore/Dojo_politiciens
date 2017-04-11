@@ -4,19 +4,27 @@ package fr.wcs.houseofcards;
  * Created by eddy on 04/04/17.
  */
 
-public class Politicien implements Malhonnete {
+public abstract class Politicien implements Malhonnete {
 
     private int revenus;
     private boolean casierJudiciaire = false;
     private double patrimoine;
     private int bullshitLevel = 0;
     private Parti parti;
+    private String name;
+    public final static int MINISTRE = 1;
+    public final static int DEPUTE = 2;
 
-    public Politicien(int revenus, double patrimoine,
-                      Parti parti ) {
+
+    public Politicien(int revenus, double patrimoine, Parti parti, String name) {
         this.revenus = revenus;
         this.patrimoine = patrimoine;
-        this.parti=parti;
+        this.parti = parti;
+        this.name = name;
+    }
+
+    public String getName(){
+        return this.name;
     }
 
     public Parti getParti(){
@@ -83,4 +91,8 @@ public class Politicien implements Malhonnete {
     public void caughtByMediaPart() {
         casierJudiciaire=true;
     }
+
+    public abstract int getFonction();
+
+
 }

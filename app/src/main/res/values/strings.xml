@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HouseOfCards</string>
+    <string name="ministreText">Ministre</string>
+    <string name="deputyText">Deputé</string>
 </resources>

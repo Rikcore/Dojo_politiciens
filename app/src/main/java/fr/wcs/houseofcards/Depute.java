@@ -7,8 +7,8 @@ package fr.wcs.houseofcards;
 public class Depute extends Politicien {
     private boolean assiduite;
 
-    public Depute(int revenus, double patrimoine, Parti parti, boolean assiduite) {
-        super(revenus, patrimoine, parti);
+    public Depute(int revenus, double patrimoine, Parti parti, boolean assiduite, String name) {
+        super(revenus, patrimoine, parti, name);
         this.assiduite = assiduite;
     }
 
@@ -21,4 +21,8 @@ public class Depute extends Politicien {
     }
 
 
+    @Override
+    public int getFonction() {
+        return DEPUTE;
+    }
 }
