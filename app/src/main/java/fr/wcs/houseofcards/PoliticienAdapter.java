@@ -106,19 +106,38 @@ public class PoliticienAdapter extends BaseAdapter implements Filterable {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
 
+            FilterResults results = new FilterResults();
+            ArrayList<Politicien> filteredPoliticiens = new ArrayList<Politicien>();
+            String constraintString=constraint.toString();
+
+            // perform your search here using the searchConstraint String.
+
+            for (int i = 0; i < elus.size(); i++) {
+
+                    if (constraintString.contains(String.valueOf(elus.get(i).getFonction())))  {
+                        filteredPoliticiens.add(elus.get(i));
+                    }
 
 
-            return null;
+                }
+
+            results.values = filteredPoliticiens;
+            results.count = filteredPoliticiens.size();
+
+
+            return results;
         }
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
 
+            elus = (ArrayList<Politicien>) results.values;
+            notifyDataSetChanged();
         }
     };
 
     @Override
     public Filter getFilter() {
-        return null;
+        return mFilter;
     }
 }

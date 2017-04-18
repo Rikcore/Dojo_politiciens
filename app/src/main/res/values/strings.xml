@@ -2,4 +2,6 @@
     <string name="app_name">HouseOfCards</string>
     <string name="ministreText">Ministre</string>
     <string name="deputyText">Deputé</string>
+    <string name="ministre">Ministre</string>
+    <string name="deputes">Députés</string>
 </resources>
