@@ -7,17 +7,19 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.RadioButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener{
+public class MainActivity extends AppCompatActivity{
 
     private ListView polList;
     private ArrayList<Politicien> arrayPol;
     private PoliticienAdapter mAdapter;
     private CheckBox mCheckBoxMinistre;
     private CheckBox mCheckBoxDeputes;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +30,9 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         arrayPol = new ArrayList<>();
 
         mCheckBoxDeputes = (CheckBox) findViewById(R.id.checkBoxDeputes);
+        mCheckBoxDeputes.setChecked(true);
         mCheckBoxMinistre = (CheckBox) findViewById(R.id.checkBoxMinistre);
-        mCheckBoxDeputes.setOnCheckedChangeListener(this);
-        mCheckBoxMinistre.setOnCheckedChangeListener(this);
+        mCheckBoxMinistre.setChecked(true);
 
 
 
@@ -55,34 +57,70 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         });
 
 
+
+
+        mCheckBoxDeputes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    mAdapter.setElu(arrayPol);
+                    mAdapter.getFilter().filter(String.valueOf(Politicien.DEPUTE));
+                }
+                if(!(isChecked)) {
+                    mAdapter.getFilter().filter(String.valueOf(Politicien.MINISTRE));
+                }
+                else if (mCheckBoxMinistre.isChecked() && mCheckBoxDeputes.isChecked()){
+                    mAdapter = new PoliticienAdapter(arrayPol, R.layout.politician_item, MainActivity.this);
+                    polList.setAdapter(mAdapter);
+                }
+            }
+        });
+
+
+        mCheckBoxMinistre.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    mAdapter.setElu(arrayPol);
+                    mAdapter.getFilter().filter(String.valueOf(Politicien.MINISTRE));
+                }
+                if(!(isChecked)){
+                    mAdapter.getFilter().filter(String.valueOf(Politicien.DEPUTE));
+                }
+                else if (mCheckBoxMinistre.isChecked() && mCheckBoxDeputes.isChecked()){
+                    mAdapter = new PoliticienAdapter(arrayPol, R.layout.politician_item, MainActivity.this);
+                    polList.setAdapter(mAdapter);
+                }
+            }
+        });
     }
 
 
-    @Override
+
+
+    /*@Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        PoliticienAdapter pAdapter = new PoliticienAdapter(arrayPol, R.layout.politician_item, MainActivity.this);
 
         switch (buttonView.getId()) {
 
             case (R.id.checkBoxMinistre):
-                if(isChecked) {
-                    pAdapter.getFilter().filter(String.valueOf(Politicien.MINISTRE));
-                    polList.setAdapter(pAdapter);
+                if(!(isChecked)) {
+                    mAdapter.getFilter().filter(String.valueOf(Politicien.DEPUTE));
                 }
-                else{
-                    polList.setAdapter(mAdapter);
+                else if (isChecked){
+                    mAdapter.setElu(arrayPol);
                 }
                 break;
 
             case (R.id.checkBoxDeputes):
-                if(isChecked) {
-                    mAdapter.getFilter().filter(String.valueOf(Politicien.DEPUTE));
-                    polList.setAdapter(pAdapter);
+                if(!(isChecked)) {
+                    mAdapter.getFilter().filter(String.valueOf(Politicien.MINISTRE));
                 }
-                else{
-                    polList.setAdapter(mAdapter);
+                else if (isChecked){
+                    mAdapter.setElu(arrayPol);
                 }
                 break;
+
         }
-    }
+    }*/
 }

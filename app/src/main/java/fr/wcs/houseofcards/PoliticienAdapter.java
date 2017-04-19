@@ -134,10 +134,27 @@ public class PoliticienAdapter extends BaseAdapter implements Filterable {
             elus = (ArrayList<Politicien>) results.values;
             notifyDataSetChanged();
         }
+
+
     };
 
     @Override
     public Filter getFilter() {
         return mFilter;
     }
+
+
+
+    public void setElu(ArrayList<Politicien> elus){
+        this.elus = elus;
+    }
 }
+
+
+
+
+
+
+
+
+
